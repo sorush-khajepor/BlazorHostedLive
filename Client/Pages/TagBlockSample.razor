@@ -1,0 +1,27 @@
+﻿@page "/tagblocksample"
+@using IamSorush.Client.Components
+
+@foreach (var fruit in fruits)
+{
+    <TagBlock Tag=@fruit OnClose="(tag => OnTagClosed(tag))" />
+}
+<p>@((MarkupString)_message)</p>
+
+@code{
+    private string _message = "";
+    List<string> fruits = new List<string>()
+    {
+        "Apple",
+        "Orange",
+        "Pear",
+        "Grapes",
+        "Banana",
+        "Avocado",
+        "Pineapple"
+    };
+    private void OnTagClosed(string tag)
+    {
+        _message +=   tag + " closed!"+"<br/>";
+    }
+}
+

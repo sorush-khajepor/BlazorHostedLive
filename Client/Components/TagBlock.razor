@@ -1,0 +1,39 @@
+﻿<style>
+    .tag-container {
+        display: inline-block;
+        background-color: darkblue;
+        padding-left: 2px;
+        padding-right: 2px;
+        border-radius: 3px;
+    }
+
+    .tag-tag {
+        color: white;
+    }
+
+    .tag-close {
+        color: white;
+        cursor: pointer;
+    }
+</style>
+
+
+@if (_isVisibile)
+{
+    <div class="tag-container">
+        <span class="tag-tag">@Tag</span>
+        <span class="tag-close" @onclick="(_=> { _isVisibile = false;OnClose.InvokeAsync(Tag);})">X</span>
+    </div>
+}
+
+@code {
+
+    private bool _isVisibile = true;
+
+    [Parameter]
+    public string Tag { get; set; }
+
+    [Parameter]
+    public EventCallback<string> OnClose { get; set; }
+
+}
