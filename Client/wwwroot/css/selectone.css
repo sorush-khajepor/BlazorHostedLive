@@ -1,0 +1,137 @@
+﻿:root {
+    --border-radius: 10px;
+    --open-time: 0.3s;
+    --close-time: 0.1s;
+    --button-time: 0.1s;
+    --button-width: 1.9em;
+    --border-color: gray;
+    --hover-color: lightgray;
+}
+
+.selectone {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 10em;
+    height: 1.5em;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+.selectone-focusin {
+    border-radius: var(--border-radius) var(--border-radius) 0px 0px;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+
+.selectone-focusout {
+    animation: selectone--border-closed var(--open-time) linear forwards;
+}
+
+@keyframes selectone--border-closed {
+    0% {
+        border-radius: var(--border-radius) var(--border-radius) 0px 0px;
+        box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+    }
+
+    90% {
+        border-radius: var(--border-radius) var(--border-radius) 0px 0px;
+        box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+    }
+
+    100% {
+        border-width: 1px;
+        border-radius: var(--border-radius);
+    }
+}
+
+.selectone__input {
+    position: relative;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    width: calc(100% - var(--button-width) );
+    height: 100%;
+    padding-left: 0.25em;
+    margin: 0px;
+    background-color: transparent;
+    border-radius: 0px;
+}
+
+
+.selectone__list {
+    position: absolute;
+    padding: 0;
+    margin: -1px 0px 0px -1px;
+    min-width: calc(100%);
+    max-width: calc(100%);
+    border: 1px solid var(--border-color);
+    background-color: white;
+    cursor: pointer;
+    border-radius: 0px 0px var(--border-radius) var(--border-radius);
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+    transform: scaleY(0);
+    transform-origin: top center;
+    transition: all var(--open-time) ease;
+}
+
+.selectone__input:focus ~ .selectone__list {
+    transform-origin: top center;
+    transform: scaleY(1);
+    border-top-width: 0px;
+}
+
+.selectone__item {
+    position: relative;
+    list-style: none;
+    box-sizing: border-box;
+    padding-left: 0.5em;
+    width: 100%;
+}
+
+    .selectone__item:hover {
+        background-color: var(--hover-color);
+    }
+
+        .selectone__item:hover:last-of-type {
+            background-color: var(--hover-color);
+            border-radius: 0px 0px var(--border-radius) var(--border-radius);
+        }
+
+.selectone__xbutton {
+    height: 100%;
+    box-sizing: border-box;
+    width: var(--button-width);
+    margin: 0px;
+    padding: 0px;
+    background-color: white;
+    outline: none;
+    cursor: pointer;
+    border-width: 0px;
+    border-color: var(--border-color);
+    border-radius: 0px var(--border-radius) var(--border-radius) 0px;
+}
+
+.selectone__xbutton-visible {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity var(--button-time) linear;
+}
+
+
+.selectone__xbutton-hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s var(--button-time), opacity var(--button-time) linear;
+}
+
+.selectone__xbutton:hover:active {
+    background-color: gray;
+    color: white;
+    transition: all var(--button-time) ease;
+}
+
+.selectone__xbutton:hover {
+    background-color: var(--hover-color);
+    color: white;
+    transition: all var(--button-time) ease;
+}
