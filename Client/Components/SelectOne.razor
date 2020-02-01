@@ -28,8 +28,8 @@
         <ul class="selectone__list">
             @foreach (var item in FilteredItems)
             {
-                <li class="selectone__item"
-                    style='@(ReferenceEquals(item,selectedItem)?"background-color:cornflowerblue;":"")'
+                <li class='selectone__item
+                    @(ReferenceEquals(item,selectedItem)?"selectone__item-selected":"")'
                     tabindex="0"
                     @onmousedown='(_ => { selectedItem = item;  inputText=""; OnSelected.InvokeAsync(selectedItem); })'>
                     @ItemTemplate(item)

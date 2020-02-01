@@ -94,7 +94,7 @@
     border-top-width: 0px;
 }
 
-.selectone__item, .selectone__no-item {
+.selectone__item, .selectone__no-item, selectone_item-selected {
     position: relative;
     list-style: none;
     box-sizing: border-box;
@@ -104,6 +104,9 @@
 
 .selectone__no-item {
     color: gray;
+}
+.selectone__item-selected {
+    font-weight: bold;
 }
 
     .selectone__item:hover {
