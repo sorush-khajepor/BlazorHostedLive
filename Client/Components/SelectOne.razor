@@ -1,0 +1,113 @@
+﻿@typeparam TItem
+
+    <div class="selectone @selectOneClassModifier">
+        <input type="text"
+               class="selectone__input"
+               @bind-value="@InputText"
+               @bind-value:event="oninput"
+               @onkeypress='(_ => {   })'
+               @onfocusin='(_ => { FilteredItems = Items; selectedItemOpacity = "0.5"; selectOneClassModifier = "selectone-focusin";  })'
+               @onfocusout='(_ => { selectedItemOpacity = "1"; inputText = ""; selectOneClassModifier = "selectone-focusout"; })' />
+        @if (showSelectedItem && isSelected)
+        {
+            <span tabindex="-1"
+                  class="selectone__selected-item"
+                  style="opacity:@selectedItemOpacity">
+                @ItemTemplate(selectedItem)
+            </span>
+        }
+        else if (showPlaceHolder)
+        {
+            <span tabindex="-1"
+                  class="selectone__selected-item"
+                  style="opacity:0.5">
+                @PlaceHolder
+            </span>
+        }
+        <button class="selectone__xbutton @buttonClassModifier">x</button>
+        <ul class="selectone__list">
+            @foreach (var item in FilteredItems)
+            {
+                <li class="selectone__item"
+                    style='@(ReferenceEquals(item,selectedItem)?"background-color:cornflowerblue;":"")'
+                    tabindex="0"
+                    @onmousedown='(_ => { selectedItem = item;  inputText=""; OnSelected.InvokeAsync(selectedItem); })'>
+                    @ItemTemplate(item)
+                </li>
+            }
+            @if (!FilteredItems.Any())
+            {
+                <li class="selectone__no-item">No results found.</li>
+            }
+        </ul>
+    </div>
+
+@code {
+
+    string selectOneClassModifier = "";
+    string buttonClassModifier = "";
+    bool showButton = true;
+    private bool showDropDown = false;
+    private bool isSelected { get => selectedItem != null; }
+    private bool showSelectedItem { get => string.IsNullOrEmpty(inputText); }
+    private string itemClass;
+    private string selectedItemOpacity="1";
+    private bool showPlaceHolder { get => string.IsNullOrEmpty(inputText); }
+    [Parameter]
+    public string PlaceHolder { get; set; } = "Search ...";
+    private string inputText="";
+    private string dropDownStyle = "";
+
+    TItem selectedItem;
+    [Parameter]
+    public EventCallback<TItem>
+    OnSelected { get; set; }
+
+    public string InputText
+    {
+    get
+    {
+    return inputText;
+    }
+    set
+    {
+    inputText = value;
+    FilteredItems=Items.Where(p=>GetItemJson(p).ToLower().Contains(inputText.ToLower())).ToList();
+
+    }
+    }
+
+    [Parameter]
+    public RenderFragment<TItem>
+        ItemTemplate { get; set; }
+
+        [Parameter]
+        public RenderFragment<string>
+            SearchedText { get; set; }
+
+            [Parameter]
+            public IList<TItem>
+                Items {get; set;}
+
+                IList<TItem>
+                    FilteredItems;
+                    protected override async Task OnInitializedAsync()
+                    {
+                    FilteredItems = Items;
+
+                    /*
+                    Type t = Items.GetType();
+
+                    var prop = t.GetProperty("Items");
+
+                    object list = prop.GetValue(Items);
+                    */
+
+                    }
+
+                    string GetItemJson(TItem item)
+                    {
+                    return System.Text.Json.JsonSerializer.Serialize<TItem>
+                        (item);
+                        }
+                        }
