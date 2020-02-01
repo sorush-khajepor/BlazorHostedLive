@@ -1,0 +1,32 @@
+﻿@page "/selectonesample"
+@using IamSorush.Client.Components
+
+<SelectOne Items="people" TItem="Person" Context="person" OnSelected="(p=>selectedPerson=p)" >
+    <ItemTemplate>
+        @person.Name
+    </ItemTemplate>
+</SelectOne>
+
+
+
+
+@code {
+
+    private List<Person> people = new List<Person>() 
+    { 
+        new Person(){Id=2,Name="Jack", Age=20},
+        new Person(){Id=4,Name="Rose", Age=22},
+        new Person(){Id=6,Name="David", Age=21},
+        new Person(){Id=7,Name="Nicole", Age=23},
+        new Person(){Id=3,Name="Mary", Age=21},
+
+    };
+    private Person selectedPerson;
+    public class Person
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Age { get; set; }
+    }
+
+}
