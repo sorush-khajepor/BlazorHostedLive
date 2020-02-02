@@ -132,13 +132,14 @@
     border-color: var(--border-color);
     border-radius: 0px var(--border-radius) var(--border-radius) 0px;
 }
-
+    .selectone__xbutton:focus {
+        outline: 0;
+    }
 .selectone__xbutton-visible {
     visibility: visible;
     opacity: 1;
     transition: opacity var(--button-time) linear;
 }
-
 
 .selectone__xbutton-hidden {
     visibility: hidden;
@@ -146,14 +147,4 @@
     transition: visibility 0s var(--button-time), opacity var(--button-time) linear;
 }
 
-.selectone__xbutton:hover:active {
-    background-color: gray;
-    color: white;
-    transition: all var(--button-time) ease;
-}
 
-.selectone__xbutton:hover {
-    background-color: var(--hover-color);
-    color: white;
-    transition: all var(--button-time) ease;
-}
