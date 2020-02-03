@@ -1,0 +1,38 @@
+﻿
+@if (isVisible)
+{
+    <div class="wordblock__container ">
+        <span class="wordblock__word @wordClassModifier">@Word</span>
+        <span class="wordblock__x"
+              @onmousedown='(_=>OnMouseDown())'
+              @onmouseup="(_=> OnMouseUp())"
+              @onmouseout="(_=>OnMouseOut())">✕</span>
+    </div>
+}
+
+@code {
+
+    private bool isVisible = true;
+    private string wordClassModifier = "";
+
+    [Parameter]
+    public string Word { get; set; }
+
+    [Parameter]
+    public EventCallback<string> OnClose { get; set; }
+
+    private void OnMouseDown()
+    {
+        wordClassModifier = "wordblock__word-shrinked";
+    }
+
+    private void OnMouseUp()
+    {
+        isVisible = false; OnClose.InvokeAsync(Word);
+    }
+
+    private void OnMouseOut()
+    {
+        wordClassModifier = "";
+    }
+}

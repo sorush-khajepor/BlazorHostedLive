@@ -1,0 +1,41 @@
+﻿.wordblock__container {
+    display: inline-flex;
+}
+
+.wordblock__word {
+    flex: 1;
+    color: white;
+    background-color: darkblue;
+    padding-left: 2px;
+    padding-right: 2px;
+    border-radius: 3px 0px 0px 3px;
+}
+
+.wordblock__word-shrinked {
+    transform-origin: right;
+    animation: shrinking 0.1s ease-out forwards;
+}
+
+@keyframes shrinking {
+    0% {
+        transform: scaleX(1);
+    }
+
+    100% {
+        transform: scaleX(0.0);
+    }
+}
+
+.wordblock__x {
+    width: 1.2em;
+    background-color: darkblue;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 0px 3px 3px 0px;
+    user-select: none;
+}
+
+    .wordblock__x:hover {
+        background-color: gray;
+    }

@@ -1,0 +1,45 @@
+﻿@page "/wordblocksample"
+@using IamSorush.Client.Components
+
+<h1>WordBlock</h1>
+<p>They can be used as keywords or tags that users add or delete.</p>
+<ul>
+    <li>
+        On pointer hover X, it's background-color changes,
+    </li>
+    <li>
+        On mouse button down on X, the block shrinks with animation,
+    </li>
+    <li>
+        On mouse button released on X, it is removed from a page,
+    </li>
+    <li>
+        If removed, the parent is notified by an event-call-back.
+    </li>
+</ul>
+
+@foreach (var fruit in fruits)
+{
+    <WordBlock Word=@fruit OnClose="(word => OnBlockClosed(word))" />
+}
+<p>@((MarkupString)_message)</p>
+
+@code{
+    private string _message = "";
+    List<string> fruits = new List<string>()
+{
+        "Apple",
+        "Orange",
+        "Pear",
+        "Grapes",
+        "Banana",
+        "Avocado",
+        "Pineapple",
+        "Mango"
+    };
+    private void OnBlockClosed(string tag)
+    {
+        _message += tag + " closed!" + "<br/>";
+    }
+}
+
